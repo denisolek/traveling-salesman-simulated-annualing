@@ -1,14 +1,22 @@
 fun main(args: Array<String>) {
     val ts = TravelingSalesmanSimulatedAnnealing()
 
-    ts.simulateAnnealing(30.0, 50, 0.9)
+    ts.simulateAnnealing(
+        startingTemperature = 30.0,
+        numberOfIterations = 50,
+        coolingRate = 0.9
+    )
 }
 
 class TravelingSalesmanSimulatedAnnealing {
     private val travel = Travel(10)
 
     fun simulateAnnealing(startingTemperature: Double, numberOfIterations: Int, coolingRate: Double) {
-        println("Starting SA with temperature: $startingTemperature, # of iterations: $numberOfIterations and colling rate: $coolingRate")
+        println("===============================================================")
+        println("| INIT temperature: $startingTemperature")
+        println("| Number of iterations: $numberOfIterations")
+        println("| Cooling rate: $coolingRate")
+        println("===============================================================")
         var t = startingTemperature
         travel.generateInitialTravel()
         var bestDistance = travel.distance.toDouble()
@@ -25,7 +33,7 @@ class TravelingSalesmanSimulatedAnnealing {
                     bestSolution.revertSwap()
                 }
                 println("===============================================================")
-                println("| ITERATION $i \n|")
+                println("| ITERATION ${i+1} \n|")
                 println("| Distance:  $currentDistance")
                 println("| Temperature:  $t")
                 t *= coolingRate
